@@ -1,0 +1,114 @@
+<?php  
+	/**
+	 * Clase TransactionsController
+	 */
+	class transactionsController extends AppController
+	{
+		/**
+		 * Constructor de la clase
+		 */
+		public function __construct()
+		{
+			parent::__construct();
+		}
+
+		/**
+		 * Inicializa un objeto de tipo Transaction 
+		 * Obtiene la lista de transacciones
+		 * Asigna el titulo de la pagina
+		 * Llama el archivo index.phtml para visualizarlo
+		 * @return type
+		 */
+		public function index()
+		{
+			$transaction = $this->loadModel("transaction");
+			$this->_view->transactions = $transaction->GetAll();
+			$this->_view->title="Transacciones";
+			$this->_view->renderizar("index");
+		}
+
+		/**
+		 * Agregar una nueva transaccion
+		 * Crear un objeto de tipo Transaction
+		 * Asigna el titulo de la pagina
+		 * Renderiza la vista add.phtml
+		 * Obtiene las categorias registradas
+		 * Obtiene las cuentas registradas
+		 * Si obtiene datos mediante POST crea un objeto de tipo Transaction y llama al metodo Add para agregar una nueva transaccion
+		 * Redirecciona a la vista index.phtml
+		 * @return type
+		 */
+		public function add()
+		{
+			if($_POST)
+			{			
+				$modelTransaction = $this->loadModel("transaction");
+				$modelTransaction->Add($_POST);
+				$this->redirect(array("controller"=>"transactions"));
+			}
+			$modelCategory = $this->loadModel("category");
+			$this->_view->categories = $modelCategory->GetAll();
+
+			$modelAccount = $this->loadModel("account");
+			$this->_view->accounts = $modelAccount->GetAll();
+
+			$this->_view->title="Nueva Transaccion";
+			$this->_view->renderizar("add");
+		}
+
+		/**
+		 * Actualiza una transaccion 
+		 * Obtiene el Id de la transaccion 
+		 * Realizar la busqueda de la transaccion para imprimir los datos en la vista
+		 * Renderiza la vista update.phtml
+		 * Obtiene las categorias registradas
+		 * Obtiene las cuentas registradas
+		 * Si detecta la entrada de datos mediante POST crea un objeto de tipo Transaction y llama al metodo Update para actualizar los datos de la transaccion
+		 * Redirecciona a la vista index.phtml
+		 * @param type|null $id 
+		 * @return type
+		 */
+		public function update($id=null)
+		{
+			if($_POST)
+			{
+				$modelTransaction = $this->loadModel("transaction");
+				$modelTransaction->Update($_POST);
+
+				$this->redirect(array("controller"=>"transactions"));
+			}
+
+			$modelTransaction = $this->loadModel("transaction");
+			$this->_view->transaction = $modelTransaction->Find($id);
+
+			$modelCategory = $this->loadModel("category");
+			$this->_view->categories = $modelCategory->GetAll();
+
+			$modelAccount = $this->loadModel("account");
+			$this->_view->accounts = $modelAccount->GetAll();
+
+			$this->_view->title="Editar Transaccion";
+			$this->_view->renderizar("update");
+		}
+
+		/**
+		 * Eliminar una transaccion
+		 * Crea un objeto de tipo Transaction
+		 * Realiza la busqueda de la transaccion que se desea eliminar
+		 * Si se encuenta un resultado llama al metodo Delete para elminar la transaccion
+		 * Redirecciona a la vista index.phtml 
+		 * @param type|null $id 
+		 * @return type
+		 */
+		public function delete($id)
+		{
+			$modelTransaction = $this->loadModel("transaction");
+			$transaction = $modelTransaction->Find($id);
+			if($transaction)
+			{
+				$modelTransaction->Delete($id);
+				$this->redirect(array("controller"=>"transactions"));
+			}
+		}
+	}
+?>

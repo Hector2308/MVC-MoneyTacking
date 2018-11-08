@@ -1,0 +1,19 @@
+<div class="container">
+<section class="bg-white mg-top-20">
+	<h5 class="bold">
+		<strong>Nueva cuenta</strong>	
+	</h5>
+	<form action="<?php echo APP_URL.'accounts/add'; ?>" method="POST">
+		<p>
+			<label for="name">Nombre</label>
+			<input type="text" name="name" class="form-control" placeholder="Nombre">
+		</p>
+		<p class="text-right">
+			<button type="submit" class="btn btn-primary">
+				<i class="fa fa-save"></i>
+				Guardar
+			</button>
+		</p>
+	</form>
+</section>
+</div>

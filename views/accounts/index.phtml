@@ -1,0 +1,48 @@
+<section class="text-right">
+	<a href="<?php echo APP_URL.'accounts/add'; ?>">
+		<button class="btn btn-sm btn-success">
+			<span class="fa fa-plus"></span> Agregar
+		</button>
+	</a>
+</section>
+<?php if (!empty($this->accounts)): ?>
+	<section>
+		<div class="table-responsive">
+			<table class="table table-bordered table-condensed table-sm bg-white">
+				<thead class="thead-dark">
+					<tr>
+						<th>Nombre</th>
+						<th>Opciones</th>
+					</tr>		
+				</thead>
+				<tbody>
+					<?php foreach ($this->accounts as $account): ?>
+						<tr>
+							<td scope="row">
+								<?php echo $account['name']; ?>
+							</td>
+							<td class="text-right">
+								<a href="<?php echo APP_URL.'accounts/update/'.$account['id']; ?>">
+									<button class="btn btn-sm btn-circle text-white bg-primary">
+										<span class="fa fa-pen"></span>
+									</button>
+								</a>
+								<a href="<?php echo APP_URL.'accounts/delete/'.$account['id']; ?>">
+									<button class="btn btn-sm btn-circle text-white bg-danger">
+										<span class="fa fa-trash"></span>
+									</button>
+								</a>
+							</td>
+						</tr>
+					<?php endforeach ?>
+				</tbody>
+			</table>
+		</div>		
+	</section>
+<?php else: ?>
+	<section>
+		<div class="alert alert-primary" role="alert">
+		  No <strong>cuentas</strong> registradas.
+		</div>
+	</section>
+<?php endif ?>

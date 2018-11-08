@@ -1,0 +1,97 @@
+<?php  
+	/**
+	 * Clase AccountsController
+	 */
+	class accountsController extends AppController
+	{
+		/**
+		 * Constructor de la clase
+		 * @return type
+		 */
+		public function __construct()
+		{
+			parent::__construct();
+		}
+
+		/**
+		 * Inicializa un objeto de tipo Account 
+		 * Obtiene la lista de Cuentas
+		 * Asigna el titulo de la pagina
+		 * Llama el archivo index.phtml para visualizarlo
+		 * @return type
+		 */
+		public function index()
+		{
+			$modelAccount = $this->loadModel("account");
+			$this->_view->accounts = $modelAccount->GetAll();
+			$this->_view->title="Cuentas";
+			$this->_view->renderizar("index");
+		}
+
+		/**
+		 * Agregar una nueva cuenta
+		 * Crear un objeto de tipo Account
+		 * Asigna el titulo de la pagina
+		 * Renderiza la pagina add.phtml
+		 * Si obtiene datos mediante POST crea un objeto de tipo Account y llama al metodo Add para agregar un nuevo registro
+		 * Redirecciona a la vista index.phtml
+		 * @return type
+		 */
+		public function add()
+		{
+			if($_POST)
+			{
+				$modelAccount = $this->loadModel("account");
+				$modelAccount->add($_POST);
+				$this->redirect(array("controller"=>"accounts"));
+			}
+			$this->_view->title="Nueva Cuenta";
+			$this->_view->renderizar("add");
+		}
+
+		/**
+		 * Actualiza una cuenta 
+		 * Obtiene el Id de la cuenta 
+		 * Realizar la busqueda de la cuenta para imprimir los datos en la vista
+		 * Renderiza la vista update.phtml
+		 * Si detecta la entrada de datos mediante POST crea un objeto de tipo Account y llama al metodo Update para actualizar el registro
+		 * Redirecciona a la vista index.phtml
+		 * @param type|null $id 
+		 * @return type
+		 */
+		public function update($id=null)
+		{
+			if($_POST)
+			{
+				$modelAccount = $this->loadModel("account");
+				$modelAccount->Update($_POST);
+				$this->redirect(array("controller"=>"accounts"));
+			}
+
+			$modelAccount = $this->loadModel("account");
+			$this->_view->account = $modelAccount->Find($id);
+			$this->_view->title="Nueva Cuenta";
+			$this->_view->renderizar("update");	
+		}
+
+		/**
+		 * Eliminar una cuenta
+		 * Crea un objeto de tipo Account
+		 * Realiza la busqueda del elemento a elimintar
+		 * Si encuenta un resultado llama al metodo Delete para elminar el registro
+		 * Redirecciona a la vista index.phtml 
+		 * @param type|null $id 
+		 * @return type
+		 */
+		public function delete($id=null)
+		{
+			$modelAccount = $this->loadModel("account");
+			$account = $modelAccount->Find($id);
+			if($id)
+			{
+				$modelAccount->Delete($id);
+				$this->redirect(array("controller"=>"accounts"));
+			}
+		}
+	}
+?>

@@ -1,0 +1,23 @@
+<h2>Login</h2>
+<form action="<?php echo APP_URL.'login/validate';  ?>" method="POST">
+	<label id="lblError"></label>
+	<p>	
+		<label for="username"></label>
+		<input type="text" id="username" name="username">
+	</p>
+	<p>	
+		<label for="password"></label>
+		<input type="text" id="username" name="password">
+	</p>
+
+	<p>
+		<button type="submit" onclick="validate_fields()">Login</button>
+	</p>
+</form>
+
+<script>
+	function validate_fields()
+	{
+		document.getElementById('lblError').innerHTML = 'your tip has been submitted!';
+	}
+</script>

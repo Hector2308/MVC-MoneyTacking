@@ -1,0 +1,31 @@
+.mg-top-10{
+	margin-top: 10px;
+}
+.mg-top-20{
+	margin-top:20px;
+}
+.bg-blue{
+	background-color: #2796d3;
+}
+.bg-low-grey{
+	background-color: #F1F1F1;
+}
+.alert{
+	padding: 6px 10px;
+}
+.navbar{
+	padding: .3rem 1rem;
+}
+.table td.none, .table th.none{
+	border-top: 0px;
+	border-bottom: 0px;
+}
+.btn-circle{
+	border-radius: 20px;
+}
+.bg-white{
+	background-color: #FFF;
+}
+section{
+	padding: 5px 20px;
+}
